@@ -13,7 +13,8 @@
         android:text="Send Notification"
         android:onClick="notification"
         android:id="@+id/btn"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        tools:ignore="OnClick" />
 
 
 </RelativeLayout>

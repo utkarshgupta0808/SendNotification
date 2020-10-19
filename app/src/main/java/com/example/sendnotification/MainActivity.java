@@ -1,17 +1,13 @@
 package com.example.sendnotification;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -96,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             ){
+
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
+                public Map<String, String> getHeaders() {
                     Map<String,String> header = new HashMap<>();
                     header.put("content-type","application/json");
                     header.put("authorization","key=AAAA7k2rlxk:APA91bEA2-If8_pQB4-IsfMnbd2UOnl0n6rR3ay6rYP3JBqqSFv4IE8V6o7XC_he4bXt_LVxvhskcOESSqDDQPwSQ4ESuYKSMJKaUKRfvusQCgBxg83JqGeKDb7lKId60dtRKLqh37rK");

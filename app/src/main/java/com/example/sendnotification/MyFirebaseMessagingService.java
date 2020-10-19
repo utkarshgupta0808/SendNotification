@@ -1,5 +1,6 @@
 package com.example.sendnotification;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,14 +14,16 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.Objects;
 
+@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        String title = remoteMessage.getNotification().getTitle();
+        String title = Objects.requireNonNull(remoteMessage.getNotification()).getTitle();
         String body = remoteMessage.getNotification().getBody();
 
         Map<String, String> extraData = remoteMessage.getData();
@@ -32,9 +35,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 new NotificationCompat.Builder(this, "TAC")
                         .setContentTitle(title)
                         .setContentText(body)
-                        .setSmallIcon(R.drawable.ic_launcher_background);
+                        .setSmallIcon(R.drawable.ic_baseline_message_24);
 
         Intent intent;
+        assert category != null;
         if (category.equals("shoes")) {
             intent = new Intent(this, RecieveNotificationActivity.class);
 
@@ -55,10 +59,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         int id =  (int) System.currentTimeMillis();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("TAC","demo",NotificationManager.IMPORTANCE_HIGH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){ NotificationChannel channel = new NotificationChannel("TAC","demo",NotificationManager.IMPORTANCE_LOW);
+            assert notificationManager != null;
             notificationManager.createNotificationChannel(channel);
         }
+        assert notificationManager != null;
         notificationManager.notify(id,notificationBuilder.build());
 
     }
